@@ -1,5 +1,6 @@
 package jm.task.core.jdbc.util;
 
+import jm.task.core.jdbc.model.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -38,10 +39,9 @@ public class Util {
             properties.setProperty("current_session_context_class","thread");
             properties.setProperty("hibernate.dialect","org.hibernate.dialect.MySQLDialect");
             properties.setProperty("show_sql","true");
-            sessionFactory = new Configuration().addProperties(properties).configure().buildSessionFactory();
+            return sessionFactory = new Configuration().addProperties(properties).addAnnotatedClass(User.class).buildSessionFactory();
         } catch (Throwable ex) {
             throw new ExceptionInInitializerError(ex);
         }
-        return sessionFactory;
     }
 }
